@@ -1,0 +1,11 @@
+import { messageRequest, ClientMessage } from "./protocol/index";
+import "./call";
+import "./auth";
+import "./contact-messages/index";
+import "./temp-user";
+import { objectId } from "./objectId";
+
+export type messageAuthenticated : ClientMessage {
+  objectId authenticationId;
+  messageRequest message;
+}

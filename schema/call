@@ -1,0 +1,26 @@
+import { Void } from "./protocol/void";
+import { Request } from "./protocol/Request";
+
+export trait RTCSessionDescription {}
+
+export type rtcSessionDescriptionOffer : RTCSessionDescription {
+  optional<string> sdp;
+}
+
+export type rtcSessionDescriptionAnswer : RTCSessionDescription {
+  optional<string> sdp;
+}
+
+export type rtcSessionDescriptionPreAnswer : RTCSessionDescription {
+  optional<string> sdp;
+}
+
+export call SendOffer : Request => Void {
+  string username;
+  rtcSessionDescriptionOffer offer;
+}
+
+export call SendAnswer : Request => Void {
+  string username;
+  rtcSessionDescriptionAnswer answer;
+}

@@ -1,0 +1,10 @@
+import { Request } from "../protocol/Request";
+import { Void } from "../protocol/void";
+
+export call SendContactMessage : Request => Void {
+  string name;
+  string company;
+  string message;
+  string email;
+  string googleReCaptchaToken;
+}

@@ -1,0 +1,44 @@
+import { Request } from "./Request";
+import { Result } from "./Result";
+import { Error } from "./Error";
+
+trait Message {}
+
+export trait ClientMessage {}
+
+trait ServerMessage {}
+
+type newSessionCreated : ServerMessage {
+  ulong id;
+}
+
+export type messageRequest : Message, ClientMessage {
+  ulong requestId;
+  ulong sessionId;
+  Request request;
+}
+
+type messageResultSuccess : Message, ServerMessage {
+  ulong requestId;
+  Result result;
+}
+
+type messageResultError : Message, ServerMessage {
+  ulong requestId;
+  Error error;
+}
+
+trait ProtocolError {}
+
+type protocolErrorExpectingBinaryMessage : ProtocolError {}
+
+type protocolErrorDecodeMessageError : ProtocolError {}
+
+type messageProtocolError : Message, ServerMessage {
+  ProtocolError error;
+}
+
+type acknowledgeMessage : ServerMessage, ClientMessage {
+  ulong sessionId;
+  ulong messageId;
+}

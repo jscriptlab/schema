@@ -1,0 +1,11 @@
+import { Request } from "./protocol/Request";
+import { Result } from "./protocol/Result";
+import { objectId } from "./objectId";
+
+export type registerTempUserResult : Result {
+  objectId tempUserId;
+}
+
+export call RegisterTempUser : Request => registerTempUserResult {
+  string username;
+}

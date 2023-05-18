@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "noUncheckedIndexedAccess": false,
+        "noUnusedLocals": false
+    },
+    "include": [
+        "./protocol/index.ts",
+        "./protocol/Request.ts",
+        "./protocol/Result.ts",
+        "./protocol/Error.ts",
+        "./call.ts",
+        "./protocol/void.ts",
+        "./auth.ts",
+        "./objectId.ts",
+        "./contact-messages/index.ts",
+        "./temp-user.ts",
+        "./index.ts",
+        "./__types__.ts"
+    ],
+    "extends": "../tsconfig.base.json"
+}

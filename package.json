@@ -1,0 +1,39 @@
+{
+  "dependencies": {
+    "jsbuffer": "0.x"
+  },
+  "files": [
+    "schema/**/*",
+    "es/**/*.{js,d.ts}",
+    "src/**/*.{js,d.ts}"
+  ],
+  "scripts": {
+    "set-es-paths": "npx package-utilities --set-es-paths --include \"src/**/*.js\" --es-folder es",
+    "build:es": "npx tsc --project src --module ESNext --outDir es",
+    "build": "npx tsc -b src --force",
+    "prepack": "yarn schema && yarn build && yarn build:es && yarn set-es-paths",
+    "schema": "npx jsbuffer schema/index -o src --extends tsconfig.base.json --indentation-size 2"
+  },
+  "name": "@victorqueiroz/schema",
+  "version": "0.0.12",
+  "devDependencies": {
+    "package-utilities": "^0.0.6",
+    "typescript": "5.x"
+  },
+  "browser": {
+    "./src/temp-user.js": "./es/src/temp-user.js",
+    "./src/schema.js": "./es/src/schema.js",
+    "./src/objectId.js": "./es/src/objectId.js",
+    "./src/index.js": "./es/src/index.js",
+    "./src/call.js": "./es/src/call.js",
+    "./src/auth.js": "./es/src/auth.js",
+    "./src/__types__.js": "./es/src/__types__.js",
+    "./src/protocol/void.js": "./es/src/protocol/void.js",
+    "./src/protocol/index.js": "./es/src/protocol/index.js",
+    "./src/protocol/Result.js": "./es/src/protocol/Result.js",
+    "./src/protocol/Request.js": "./es/src/protocol/Request.js",
+    "./src/protocol/Error.js": "./es/src/protocol/Error.js",
+    "./src/contact-messages/index.js": "./es/src/contact-messages/index.js",
+    "./src/call/index.js": "./es/src/call/index.js"
+  }
+}

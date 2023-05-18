@@ -1,0 +1,16 @@
+
+export trait Error {}
+
+export type errorDatabaseFailure : Error {
+
+}
+
+export type errorUnknownFailure : Error {
+
+}
+
+export type errorCallNotImplemented : Error {
+
+}
+
+export type errorInputValidationFailure : Error {}

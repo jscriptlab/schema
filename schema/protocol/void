@@ -1,0 +1,6 @@
+
+import { Result } from "./Result";
+
+export trait Void {}
+
+export type void_t : Result, Void {}
