@@ -15,14 +15,13 @@
     "schema": "npx jsbuffer schema/index -o src --extends tsconfig.base.json --indentation-size 2"
   },
   "name": "@victorqueiroz/schema",
-  "version": "0.0.12",
+  "version": "0.0.14",
   "devDependencies": {
     "package-utilities": "^0.0.6",
     "typescript": "5.x"
   },
   "browser": {
     "./src/temp-user.js": "./es/src/temp-user.js",
-    "./src/schema.js": "./es/src/schema.js",
     "./src/objectId.js": "./es/src/objectId.js",
     "./src/index.js": "./es/src/index.js",
     "./src/call.js": "./es/src/call.js",
@@ -33,7 +32,6 @@
     "./src/protocol/Result.js": "./es/src/protocol/Result.js",
     "./src/protocol/Request.js": "./es/src/protocol/Request.js",
     "./src/protocol/Error.js": "./es/src/protocol/Error.js",
-    "./src/contact-messages/index.js": "./es/src/contact-messages/index.js",
-    "./src/call/index.js": "./es/src/call/index.js"
+    "./src/contact-messages/index.js": "./es/src/contact-messages/index.js"
   }
 }

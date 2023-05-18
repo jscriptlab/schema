@@ -1,0 +1,14 @@
+export trait Update {}
+
+import {
+  rtcSessionDescriptionOffer,
+  rtcSessionDescriptionAnswer
+} from "./call";
+
+export type updateCallOffer : Update {
+  rtcSessionDescriptionOffer offer;
+}
+
+export type updateCallAnswer : Update {
+  rtcSessionDescriptionAnswer answer;
+}

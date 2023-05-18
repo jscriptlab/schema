@@ -9,65 +9,65 @@ import {defaultObjectId} from "./objectId";
 import {compareObjectId} from "./objectId";
 import {compareObjectId as compareObjectId1} from "./objectId";
 import {IRequest} from "./__types__";
-export interface authorizeTemporaryUserResultInputParams {
-  tempUserId: Readonly<objectId>;
+export interface authorizationInputParams {
+  authId: Readonly<objectId>;
 }
-export function authorizeTemporaryUserResult(params: authorizeTemporaryUserResultInputParams): authorizeTemporaryUserResult {
+export function authorization(params: authorizationInputParams): authorization {
   return {
-    _name: 'auth.authorizeTemporaryUserResult',
-    tempUserId: params['tempUserId']
+    _name: 'auth.authorization',
+    authId: params['authId']
   };
 }
-export function encodeAuthorizeTemporaryUserResult(__s: ISerializer, value: authorizeTemporaryUserResult) {
-  __s.writeInt32(1203554706);
+export function encodeAuthorization(__s: ISerializer, value: authorization) {
+  __s.writeInt32(522219252);
   /**
-   * encoding param: tempUserId
+   * encoding param: authId
    */
-  const __pv0 = value['tempUserId'];
+  const __pv0 = value['authId'];
   encodeObjectId(__s,__pv0);
 }
-export function decodeAuthorizeTemporaryUserResult(__d: IDeserializer): authorizeTemporaryUserResult | null {
+export function decodeAuthorization(__d: IDeserializer): authorization | null {
   const __id = __d.readInt32();
   /**
    * decode header
    */
-  if(__id !== 1203554706) return null;
-  let tempUserId: objectId;
+  if(__id !== 522219252) return null;
+  let authId: objectId;
   /**
-   * decoding param: tempUserId
+   * decoding param: authId
    */
   const tmp2 = decodeObjectId(__d);
   if(tmp2 === null) return null;
-  tempUserId = tmp2;
+  authId = tmp2;
   return {
-    _name: 'auth.authorizeTemporaryUserResult',
-    tempUserId
+    _name: 'auth.authorization',
+    authId
   };
 }
-export interface authorizeTemporaryUserResult  {
-  _name: 'auth.authorizeTemporaryUserResult';
-  tempUserId: Readonly<objectId>;
+export interface authorization  {
+  _name: 'auth.authorization';
+  authId: Readonly<objectId>;
 }
-export function defaultAuthorizeTemporaryUserResult(params: Partial<authorizeTemporaryUserResultInputParams> = {}): authorizeTemporaryUserResult {
-  return authorizeTemporaryUserResult({
-    tempUserId: defaultObjectId(),
+export function defaultAuthorization(params: Partial<authorizationInputParams> = {}): authorization {
+  return authorization({
+    authId: defaultObjectId(),
     ...params
   });
 }
-export function compareAuthorizeTemporaryUserResult(__a: authorizeTemporaryUserResult, __b: authorizeTemporaryUserResult): boolean {
+export function compareAuthorization(__a: authorization, __b: authorization): boolean {
   return (
     /**
-     * compare parameter tempUserId
+     * compare parameter authId
      */
-    compareObjectId(__a['tempUserId'],__b['tempUserId'])
+    compareObjectId(__a['authId'],__b['authId'])
   );
 }
-export function updateAuthorizeTemporaryUserResult(value: authorizeTemporaryUserResult, changes: Partial<authorizeTemporaryUserResultInputParams>) {
-  if(typeof changes['tempUserId'] !== 'undefined') {
-    if(!(compareObjectId1(changes['tempUserId'],value['tempUserId']))) {
-      value = authorizeTemporaryUserResult({
+export function updateAuthorization(value: authorization, changes: Partial<authorizationInputParams>) {
+  if(typeof changes['authId'] !== 'undefined') {
+    if(!(compareObjectId1(changes['authId'],value['authId']))) {
+      value = authorization({
         ...value,
-        tempUserId: changes['tempUserId'],
+        authId: changes['authId'],
       });
     }
   }
@@ -106,7 +106,7 @@ export function decodeAuthorizeTemporaryUser(__d: IDeserializer): AuthorizeTempo
     username
   };
 }
-export interface AuthorizeTemporaryUser extends IRequest<Readonly<authorizeTemporaryUserResult>> {
+export interface AuthorizeTemporaryUser extends IRequest<Readonly<authorization>> {
   _name: 'auth.AuthorizeTemporaryUser';
   username: string;
 }

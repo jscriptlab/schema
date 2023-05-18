@@ -3,6 +3,7 @@ import "./call";
 import "./auth";
 import "./contact-messages/index";
 import "./temp-user";
+import "./update";
 import { objectId } from "./objectId";
 
 export type messageAuthenticated : ClientMessage {

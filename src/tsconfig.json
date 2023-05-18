@@ -14,6 +14,7 @@
         "./objectId.ts",
         "./contact-messages/index.ts",
         "./temp-user.ts",
+        "./update.ts",
         "./index.ts",
         "./__types__.ts"
     ],

@@ -2,10 +2,10 @@ import { Result } from "./protocol/Result";
 import { objectId } from "./objectId";
 import { Request } from "./protocol/Request";
 
-export type authorizeTemporaryUserResult : Result {
-  objectId tempUserId;
+export type authorization : Result {
+  objectId authId;
 }
 
-export call AuthorizeTemporaryUser : Request => authorizeTemporaryUserResult {
+export call AuthorizeTemporaryUser : Request => authorization {
   string username;
 }
