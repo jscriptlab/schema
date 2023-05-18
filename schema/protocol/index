@@ -6,7 +6,7 @@ trait Message {}
 
 export trait ClientMessage {}
 
-trait ServerMessage {}
+export trait ServerMessage {}
 
 type newSessionCreated : ServerMessage {
   ulong id;

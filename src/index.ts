@@ -1,21 +1,16 @@
-import {messageRequest} from "./protocol/index";
+import {ServerMessage} from "./protocol/index";
 import {ClientMessage} from "./protocol/index";
 import {objectId} from "./objectId";
 import {ISerializer} from "./__types__";
 import {encodeObjectId} from "./objectId";
-import {encodeMessageRequest} from "./protocol/index";
 import {IDeserializer} from "./__types__";
 import {decodeObjectId} from "./objectId";
-import {decodeMessageRequest} from "./protocol/index";
 import {defaultObjectId} from "./objectId";
-import {defaultMessageRequest} from "./protocol/index";
 import {compareObjectId} from "./objectId";
-import {compareMessageRequest} from "./protocol/index";
 import {compareObjectId as compareObjectId1} from "./objectId";
-import {compareMessageRequest as compareMessageRequest2} from "./protocol/index";
 export interface messageAuthenticatedInputParams {
   authId: Readonly<objectId>;
-  message: Readonly<messageRequest>;
+  message: Uint8Array;
 }
 export function messageAuthenticated(params: messageAuthenticatedInputParams): messageAuthenticated {
   return {
@@ -25,7 +20,7 @@ export function messageAuthenticated(params: messageAuthenticatedInputParams): m
   };
 }
 export function encodeMessageAuthenticated(__s: ISerializer, value: messageAuthenticated) {
-  __s.writeInt32(-1459379658);
+  __s.writeInt32(686061147);
   /**
    * encoding param: authId
    */
@@ -35,16 +30,17 @@ export function encodeMessageAuthenticated(__s: ISerializer, value: messageAuthe
    * encoding param: message
    */
   const __pv1 = value['message'];
-  encodeMessageRequest(__s,__pv1);
+  __s.writeUint32(__pv1.byteLength);
+  __s.writeBuffer(__pv1);
 }
 export function decodeMessageAuthenticated(__d: IDeserializer): messageAuthenticated | null {
   const __id = __d.readInt32();
   /**
    * decode header
    */
-  if(__id !== -1459379658) return null;
+  if(__id !== 686061147) return null;
   let authId: objectId;
-  let message: messageRequest;
+  let message: Uint8Array;
   /**
    * decoding param: authId
    */
@@ -54,9 +50,7 @@ export function decodeMessageAuthenticated(__d: IDeserializer): messageAuthentic
   /**
    * decoding param: message
    */
-  const tmp4 = decodeMessageRequest(__d);
-  if(tmp4 === null) return null;
-  message = tmp4;
+  message = __d.readBuffer(__d.readUint32());
   return {
     _name: 'index.messageAuthenticated',
     authId,
@@ -66,12 +60,12 @@ export function decodeMessageAuthenticated(__d: IDeserializer): messageAuthentic
 export interface messageAuthenticated  {
   _name: 'index.messageAuthenticated';
   authId: Readonly<objectId>;
-  message: Readonly<messageRequest>;
+  message: Uint8Array;
 }
 export function defaultMessageAuthenticated(params: Partial<messageAuthenticatedInputParams> = {}): messageAuthenticated {
   return messageAuthenticated({
     authId: defaultObjectId(),
-    message: defaultMessageRequest(),
+    message: new Uint8Array(0),
     ...params
   });
 }
@@ -84,7 +78,7 @@ export function compareMessageAuthenticated(__a: messageAuthenticated, __b: mess
     /**
      * compare parameter message
      */
-    compareMessageRequest(__a['message'],__b['message'])
+    __a['message'].byteLength === __b['message'].byteLength && __a['message'].every((__byte,index) => __b['message'][index] === __byte)
   );
 }
 export function updateMessageAuthenticated(value: messageAuthenticated, changes: Partial<messageAuthenticatedInputParams>) {
@@ -97,7 +91,7 @@ export function updateMessageAuthenticated(value: messageAuthenticated, changes:
     }
   }
   if(typeof changes['message'] !== 'undefined') {
-    if(!(compareMessageRequest2(changes['message'],value['message']))) {
+    if(!(changes['message'].byteLength === value['message'].byteLength && changes['message'].every((__byte,index) => value['message'][index] === __byte))) {
       value = messageAuthenticated({
         ...value,
         message: changes['message'],

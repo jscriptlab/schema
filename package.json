@@ -15,12 +15,13 @@
     "schema": "npx jsbuffer schema/index -o src --extends tsconfig.base.json --indentation-size 2"
   },
   "name": "@victorqueiroz/schema",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "devDependencies": {
     "package-utilities": "^0.0.6",
     "typescript": "5.x"
   },
   "browser": {
+    "./src/update.js": "./es/src/update.js",
     "./src/temp-user.js": "./es/src/temp-user.js",
     "./src/objectId.js": "./es/src/objectId.js",
     "./src/index.js": "./es/src/index.js",

@@ -8,21 +8,26 @@ import {encodeMessageAuthenticated} from "./../index";
 import {decodeMessageAuthenticated} from "./../index";
 import {defaultMessageAuthenticated} from "./../index";
 import {compareMessageAuthenticated} from "./../index";
+import {messageAuthenticated as messageAuthenticated1} from "./../index";
+import {encodeMessageAuthenticated as encodeMessageAuthenticated2} from "./../index";
+import {decodeMessageAuthenticated as decodeMessageAuthenticated3} from "./../index";
+import {defaultMessageAuthenticated as defaultMessageAuthenticated4} from "./../index";
+import {compareMessageAuthenticated as compareMessageAuthenticated5} from "./../index";
 import {encodeRequestTrait} from "./Request";
 import {decodeRequestTrait} from "./Request";
 import {defaultRequestTrait} from "./Request";
 import {compareRequestTrait} from "./Request";
-import {compareRequestTrait as compareRequestTrait1} from "./Request";
+import {compareRequestTrait as compareRequestTrait6} from "./Request";
 import {encodeResultTrait} from "./Result";
 import {decodeResultTrait} from "./Result";
 import {defaultResultTrait} from "./Result";
 import {compareResultTrait} from "./Result";
-import {compareResultTrait as compareResultTrait2} from "./Result";
+import {compareResultTrait as compareResultTrait7} from "./Result";
 import {encodeErrorTrait} from "./Error";
 import {decodeErrorTrait} from "./Error";
 import {defaultErrorTrait} from "./Error";
 import {compareErrorTrait} from "./Error";
-import {compareErrorTrait as compareErrorTrait3} from "./Error";
+import {compareErrorTrait as compareErrorTrait8} from "./Error";
 export type Message = Readonly<messageRequest> | Readonly<messageResultSuccess> | Readonly<messageResultError> | Readonly<messageProtocolError>;
 export function encodeMessageTrait(__s: ISerializer,value: Message) {
   switch(value._name) {
@@ -111,7 +116,7 @@ export function decodeClientMessageTrait(__d: IDeserializer) {
   __d.rewindInt32();
   let value: messageAuthenticated | messageRequest | acknowledgeMessage;
   switch(__id) {
-    case -1459379658: {
+    case 686061147: {
       const tmp = decodeMessageAuthenticated(__d);
       if(tmp === null) return null;
       value = tmp;
@@ -149,9 +154,12 @@ export function compareClientMessageTrait(__a: ClientMessage, __b: ClientMessage
       return compareAcknowledgeMessage(__a,__b);
   }
 }
-export type ServerMessage = Readonly<newSessionCreated> | Readonly<messageResultSuccess> | Readonly<messageResultError> | Readonly<messageProtocolError> | Readonly<acknowledgeMessage>;
+export type ServerMessage = Readonly<messageAuthenticated> | Readonly<newSessionCreated> | Readonly<messageResultSuccess> | Readonly<messageResultError> | Readonly<messageProtocolError> | Readonly<acknowledgeMessage>;
 export function encodeServerMessageTrait(__s: ISerializer,value: ServerMessage) {
   switch(value._name) {
+    case 'index.messageAuthenticated':
+      encodeMessageAuthenticated(__s,value);
+      break;
     case 'protocol.index.newSessionCreated':
       encodeNewSessionCreated(__s,value);
       break;
@@ -172,8 +180,14 @@ export function encodeServerMessageTrait(__s: ISerializer,value: ServerMessage) 
 export function decodeServerMessageTrait(__d: IDeserializer) {
   const __id = __d.readInt32();
   __d.rewindInt32();
-  let value: newSessionCreated | messageResultSuccess | messageResultError | messageProtocolError | acknowledgeMessage;
+  let value: messageAuthenticated | newSessionCreated | messageResultSuccess | messageResultError | messageProtocolError | acknowledgeMessage;
   switch(__id) {
+    case 686061147: {
+      const tmp = decodeMessageAuthenticated(__d);
+      if(tmp === null) return null;
+      value = tmp;
+      break;
+    }
     case 907759432: {
       const tmp = decodeNewSessionCreated(__d);
       if(tmp === null) return null;
@@ -209,10 +223,13 @@ export function decodeServerMessageTrait(__d: IDeserializer) {
   return value;
 }
 export function defaultServerMessageTrait() {
-  return defaultNewSessionCreated();
+  return defaultMessageAuthenticated();
 }
 export function compareServerMessageTrait(__a: ServerMessage, __b: ServerMessage) {
   switch(__a._name) {
+    case 'index.messageAuthenticated':
+      if(__b._name !== "index.messageAuthenticated") return false;
+      return compareMessageAuthenticated5(__a,__b);
     case 'protocol.index.newSessionCreated':
       if(__b._name !== "protocol.index.newSessionCreated") return false;
       return compareNewSessionCreated(__a,__b);
@@ -401,7 +418,7 @@ export function updateMessageRequest(value: messageRequest, changes: Partial<mes
     }
   }
   if(typeof changes['request'] !== 'undefined') {
-    if(!(compareRequestTrait1(changes['request'],value['request']))) {
+    if(!(compareRequestTrait6(changes['request'],value['request']))) {
       value = messageRequest({
         ...value,
         request: changes['request'],
@@ -492,7 +509,7 @@ export function updateMessageResultSuccess(value: messageResultSuccess, changes:
     }
   }
   if(typeof changes['result'] !== 'undefined') {
-    if(!(compareResultTrait2(changes['result'],value['result']))) {
+    if(!(compareResultTrait7(changes['result'],value['result']))) {
       value = messageResultSuccess({
         ...value,
         result: changes['result'],
@@ -583,7 +600,7 @@ export function updateMessageResultError(value: messageResultError, changes: Par
     }
   }
   if(typeof changes['error'] !== 'undefined') {
-    if(!(compareErrorTrait3(changes['error'],value['error']))) {
+    if(!(compareErrorTrait8(changes['error'],value['error']))) {
       value = messageResultError({
         ...value,
         error: changes['error'],
