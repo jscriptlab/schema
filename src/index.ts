@@ -14,22 +14,22 @@ import {compareMessageRequest} from "./protocol/index";
 import {compareObjectId as compareObjectId1} from "./objectId";
 import {compareMessageRequest as compareMessageRequest2} from "./protocol/index";
 export interface messageAuthenticatedInputParams {
-  authenticationId: Readonly<objectId>;
+  authId: Readonly<objectId>;
   message: Readonly<messageRequest>;
 }
 export function messageAuthenticated(params: messageAuthenticatedInputParams): messageAuthenticated {
   return {
     _name: 'index.messageAuthenticated',
-    authenticationId: params['authenticationId'],
+    authId: params['authId'],
     message: params['message']
   };
 }
 export function encodeMessageAuthenticated(__s: ISerializer, value: messageAuthenticated) {
   __s.writeInt32(-1459379658);
   /**
-   * encoding param: authenticationId
+   * encoding param: authId
    */
-  const __pv0 = value['authenticationId'];
+  const __pv0 = value['authId'];
   encodeObjectId(__s,__pv0);
   /**
    * encoding param: message
@@ -43,14 +43,14 @@ export function decodeMessageAuthenticated(__d: IDeserializer): messageAuthentic
    * decode header
    */
   if(__id !== -1459379658) return null;
-  let authenticationId: objectId;
+  let authId: objectId;
   let message: messageRequest;
   /**
-   * decoding param: authenticationId
+   * decoding param: authId
    */
   const tmp2 = decodeObjectId(__d);
   if(tmp2 === null) return null;
-  authenticationId = tmp2;
+  authId = tmp2;
   /**
    * decoding param: message
    */
@@ -59,18 +59,18 @@ export function decodeMessageAuthenticated(__d: IDeserializer): messageAuthentic
   message = tmp4;
   return {
     _name: 'index.messageAuthenticated',
-    authenticationId,
+    authId,
     message
   };
 }
 export interface messageAuthenticated  {
   _name: 'index.messageAuthenticated';
-  authenticationId: Readonly<objectId>;
+  authId: Readonly<objectId>;
   message: Readonly<messageRequest>;
 }
 export function defaultMessageAuthenticated(params: Partial<messageAuthenticatedInputParams> = {}): messageAuthenticated {
   return messageAuthenticated({
-    authenticationId: defaultObjectId(),
+    authId: defaultObjectId(),
     message: defaultMessageRequest(),
     ...params
   });
@@ -78,9 +78,9 @@ export function defaultMessageAuthenticated(params: Partial<messageAuthenticated
 export function compareMessageAuthenticated(__a: messageAuthenticated, __b: messageAuthenticated): boolean {
   return (
     /**
-     * compare parameter authenticationId
+     * compare parameter authId
      */
-    compareObjectId(__a['authenticationId'],__b['authenticationId']) &&
+    compareObjectId(__a['authId'],__b['authId']) &&
     /**
      * compare parameter message
      */
@@ -88,11 +88,11 @@ export function compareMessageAuthenticated(__a: messageAuthenticated, __b: mess
   );
 }
 export function updateMessageAuthenticated(value: messageAuthenticated, changes: Partial<messageAuthenticatedInputParams>) {
-  if(typeof changes['authenticationId'] !== 'undefined') {
-    if(!(compareObjectId1(changes['authenticationId'],value['authenticationId']))) {
+  if(typeof changes['authId'] !== 'undefined') {
+    if(!(compareObjectId1(changes['authId'],value['authId']))) {
       value = messageAuthenticated({
         ...value,
-        authenticationId: changes['authenticationId'],
+        authId: changes['authId'],
       });
     }
   }

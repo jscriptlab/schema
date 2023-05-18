@@ -7,6 +7,6 @@ import "./update";
 import { objectId } from "./objectId";
 
 export type messageAuthenticated : ClientMessage {
-  objectId authenticationId;
+  objectId authId;
   messageRequest message;
 }
