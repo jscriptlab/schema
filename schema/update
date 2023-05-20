@@ -1,9 +1,10 @@
-export trait Update {}
-
 import {
   rtcSessionDescriptionOffer,
   rtcSessionDescriptionAnswer
 } from "./call";
+import { ServerMessage } from "./protocol/index";
+
+export trait Update {}
 
 export type updateCallOffer : Update {
   rtcSessionDescriptionOffer offer;
@@ -11,4 +12,8 @@ export type updateCallOffer : Update {
 
 export type updateCallAnswer : Update {
   rtcSessionDescriptionAnswer answer;
+}
+
+export type Updates : ServerMessage {
+  vector<Update> updates;
 }

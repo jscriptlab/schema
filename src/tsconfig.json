@@ -15,6 +15,7 @@
         "./contact-messages/index.ts",
         "./temp-user.ts",
         "./update.ts",
+        "./internal.ts",
         "./index.ts",
         "./__types__.ts"
     ],

@@ -11,11 +11,11 @@
     "set-es-paths": "npx package-utilities --set-es-paths --include \"src/**/*.js\" --es-folder es",
     "build:es": "npx tsc --project src --module ESNext --outDir es",
     "build": "npx tsc -b src --force",
-    "prepack": "yarn schema && yarn build && yarn build:es && yarn set-es-paths",
+    "prepublishOnly": "yarn schema && yarn build && yarn build:es && yarn set-es-paths",
     "schema": "npx jsbuffer schema/index -o src --extends tsconfig.base.json --indentation-size 2"
   },
-  "name": "@victorqueiroz/schema",
-  "version": "0.0.15",
+  "name": "@jscriptlab/schema",
+  "version": "0.0.20",
   "devDependencies": {
     "package-utilities": "^0.0.6",
     "typescript": "5.x"
@@ -24,6 +24,7 @@
     "./src/update.js": "./es/src/update.js",
     "./src/temp-user.js": "./es/src/temp-user.js",
     "./src/objectId.js": "./es/src/objectId.js",
+    "./src/internal.js": "./es/src/internal.js",
     "./src/index.js": "./es/src/index.js",
     "./src/call.js": "./es/src/call.js",
     "./src/auth.js": "./es/src/auth.js",

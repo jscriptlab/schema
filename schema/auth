@@ -3,7 +3,8 @@ import { objectId } from "./objectId";
 import { Request } from "./protocol/Request";
 
 export type authorization : Result {
-  objectId authId;
+  objectId id;
+  bytes key;
 }
 
 export call AuthorizeTemporaryUser : Request => authorization {

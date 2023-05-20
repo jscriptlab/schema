@@ -5,3 +5,4 @@
 /*.tgz
 /es
 tsconfig.tsbuildinfo
+/yarn-error.log

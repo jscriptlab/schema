@@ -8,7 +8,7 @@ export trait ClientMessage {}
 
 export trait ServerMessage {}
 
-type newSessionCreated : ServerMessage {
+export type newSessionCreated : ServerMessage {
   ulong id;
 }
 
@@ -33,6 +33,8 @@ trait ProtocolError {}
 type protocolErrorExpectingBinaryMessage : ProtocolError {}
 
 type protocolErrorDecodeMessageError : ProtocolError {}
+
+type protocolErrorUnknownError : ProtocolError {}
 
 type messageProtocolError : Message, ServerMessage {
   ProtocolError error;

@@ -1,0 +1,13 @@
+import { objectId } from "./objectId";
+import { Update } from "./update";
+
+export trait UpdateTarget {}
+
+export type updateTargetTempUser : UpdateTarget {
+  objectId tempUserId;
+}
+
+export type updateBroadcast {
+  vector<UpdateTarget> targets;
+  vector<Update> updates;
+}

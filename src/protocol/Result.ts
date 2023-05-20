@@ -38,7 +38,7 @@ export function decodeResultTrait(__d: IDeserializer) {
       value = tmp;
       break;
     }
-    case 522219252: {
+    case -1526548792: {
       const tmp = decodeAuthorization(__d);
       if(tmp === null) return null;
       value = tmp;
