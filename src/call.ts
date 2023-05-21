@@ -1,8 +1,20 @@
 import {Void} from "./protocol/void";
 import {Request} from "./protocol/Request";
+import {Result} from "./protocol/Result";
+import {objectId} from "./objectId";
 import {ISerializer} from "./__types__";
 import {IDeserializer} from "./__types__";
+import {encodeObjectId} from "./objectId";
+import {decodeObjectId} from "./objectId";
+import {defaultObjectId} from "./objectId";
+import {compareObjectId} from "./objectId";
+import {compareObjectId as compareObjectId1} from "./objectId";
 import {IRequest} from "./__types__";
+import {encodeObjectId as encodeObjectId2} from "./objectId";
+import {decodeObjectId as decodeObjectId3} from "./objectId";
+import {defaultObjectId as defaultObjectId4} from "./objectId";
+import {compareObjectId as compareObjectId5} from "./objectId";
+import {compareObjectId as compareObjectId6} from "./objectId";
 export type RTCSessionDescription = Readonly<rtcSessionDescriptionOffer> | Readonly<rtcSessionDescriptionAnswer> | Readonly<rtcSessionDescriptionPreAnswer>;
 export function encodeRTCSessionDescriptionTrait(__s: ISerializer,value: RTCSessionDescription) {
   switch(value._name) {
@@ -273,6 +285,70 @@ export function updateRtcSessionDescriptionPreAnswer(value: rtcSessionDescriptio
   }
   return value;
 }
+export interface sendOfferResultInputParams {
+  callId: Readonly<objectId>;
+}
+export function sendOfferResult(params: sendOfferResultInputParams): sendOfferResult {
+  return {
+    _name: 'call.sendOfferResult',
+    callId: params['callId']
+  };
+}
+export function encodeSendOfferResult(__s: ISerializer, value: sendOfferResult) {
+  __s.writeInt32(-1186756737);
+  /**
+   * encoding param: callId
+   */
+  const __pv0 = value['callId'];
+  encodeObjectId(__s,__pv0);
+}
+export function decodeSendOfferResult(__d: IDeserializer): sendOfferResult | null {
+  const __id = __d.readInt32();
+  /**
+   * decode header
+   */
+  if(__id !== -1186756737) return null;
+  let callId: objectId;
+  /**
+   * decoding param: callId
+   */
+  const tmp2 = decodeObjectId(__d);
+  if(tmp2 === null) return null;
+  callId = tmp2;
+  return {
+    _name: 'call.sendOfferResult',
+    callId
+  };
+}
+export interface sendOfferResult  {
+  _name: 'call.sendOfferResult';
+  callId: Readonly<objectId>;
+}
+export function defaultSendOfferResult(params: Partial<sendOfferResultInputParams> = {}): sendOfferResult {
+  return sendOfferResult({
+    callId: defaultObjectId(),
+    ...params
+  });
+}
+export function compareSendOfferResult(__a: sendOfferResult, __b: sendOfferResult): boolean {
+  return (
+    /**
+     * compare parameter callId
+     */
+    compareObjectId(__a['callId'],__b['callId'])
+  );
+}
+export function updateSendOfferResult(value: sendOfferResult, changes: Partial<sendOfferResultInputParams>) {
+  if(typeof changes['callId'] !== 'undefined') {
+    if(!(compareObjectId1(changes['callId'],value['callId']))) {
+      value = sendOfferResult({
+        ...value,
+        callId: changes['callId'],
+      });
+    }
+  }
+  return value;
+}
 export interface SendOfferInputParams {
   username: string;
   offer: Readonly<rtcSessionDescriptionOffer>;
@@ -321,7 +397,7 @@ export function decodeSendOffer(__d: IDeserializer): SendOffer | null {
     offer
   };
 }
-export interface SendOffer extends IRequest<Readonly<Void>> {
+export interface SendOffer extends IRequest<Readonly<sendOfferResult>> {
   _name: 'call.SendOffer';
   username: string;
   offer: Readonly<rtcSessionDescriptionOffer>;
@@ -365,23 +441,23 @@ export function updateSendOffer(value: SendOffer, changes: Partial<SendOfferInpu
   return value;
 }
 export interface SendAnswerInputParams {
-  username: string;
+  callId: Readonly<objectId>;
   answer: Readonly<rtcSessionDescriptionAnswer>;
 }
 export function SendAnswer(params: SendAnswerInputParams): SendAnswer {
   return {
     _name: 'call.SendAnswer',
-    username: params['username'],
+    callId: params['callId'],
     answer: params['answer']
   };
 }
 export function encodeSendAnswer(__s: ISerializer, value: SendAnswer) {
-  __s.writeInt32(1883292546);
+  __s.writeInt32(16941136);
   /**
-   * encoding param: username
+   * encoding param: callId
    */
-  const __pv0 = value['username'];
-  __s.writeString(__pv0);
+  const __pv0 = value['callId'];
+  encodeObjectId2(__s,__pv0);
   /**
    * encoding param: answer
    */
@@ -393,33 +469,35 @@ export function decodeSendAnswer(__d: IDeserializer): SendAnswer | null {
   /**
    * decode header
    */
-  if(__id !== 1883292546) return null;
-  let username: string;
+  if(__id !== 16941136) return null;
+  let callId: objectId;
   let answer: rtcSessionDescriptionAnswer;
   /**
-   * decoding param: username
+   * decoding param: callId
    */
-  username = __d.readString();
+  const tmp2 = decodeObjectId3(__d);
+  if(tmp2 === null) return null;
+  callId = tmp2;
   /**
    * decoding param: answer
    */
-  const __tmp2 = decodeRtcSessionDescriptionAnswer(__d);
-  if(__tmp2 === null) return null;
-  answer = __tmp2;
+  const __tmp3 = decodeRtcSessionDescriptionAnswer(__d);
+  if(__tmp3 === null) return null;
+  answer = __tmp3;
   return {
     _name: 'call.SendAnswer',
-    username,
+    callId,
     answer
   };
 }
 export interface SendAnswer extends IRequest<Readonly<Void>> {
   _name: 'call.SendAnswer';
-  username: string;
+  callId: Readonly<objectId>;
   answer: Readonly<rtcSessionDescriptionAnswer>;
 }
 export function defaultSendAnswer(params: Partial<SendAnswerInputParams> = {}): SendAnswer {
   return SendAnswer({
-    username: "",
+    callId: defaultObjectId(),
     answer: defaultRtcSessionDescriptionAnswer(),
     ...params
   });
@@ -427,9 +505,9 @@ export function defaultSendAnswer(params: Partial<SendAnswerInputParams> = {}): 
 export function compareSendAnswer(__a: SendAnswer, __b: SendAnswer): boolean {
   return (
     /**
-     * compare parameter username
+     * compare parameter callId
      */
-    __a['username'] === __b['username'] &&
+    compareObjectId5(__a['callId'],__b['callId']) &&
     /**
      * compare parameter answer
      */
@@ -437,11 +515,11 @@ export function compareSendAnswer(__a: SendAnswer, __b: SendAnswer): boolean {
   );
 }
 export function updateSendAnswer(value: SendAnswer, changes: Partial<SendAnswerInputParams>) {
-  if(typeof changes['username'] !== 'undefined') {
-    if(!(changes['username'] === value['username'])) {
+  if(typeof changes['callId'] !== 'undefined') {
+    if(!(compareObjectId6(changes['callId'],value['callId']))) {
       value = SendAnswer({
         ...value,
-        username: changes['username'],
+        callId: changes['callId'],
       });
     }
   }

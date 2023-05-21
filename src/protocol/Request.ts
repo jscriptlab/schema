@@ -52,7 +52,7 @@ export function decodeRequestTrait(__d: IDeserializer) {
       value = tmp;
       break;
     }
-    case 1883292546: {
+    case 16941136: {
       const tmp = decodeSendAnswer(__d);
       if(tmp === null) return null;
       value = tmp;

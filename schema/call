@@ -1,5 +1,7 @@
 import { Void } from "./protocol/void";
 import { Request } from "./protocol/Request";
+import { Result } from "./protocol/Result";
+import { objectId } from "./objectId";
 
 export trait RTCSessionDescription {}
 
@@ -15,12 +17,16 @@ export type rtcSessionDescriptionPreAnswer : RTCSessionDescription {
   optional<string> sdp;
 }
 
-export call SendOffer : Request => Void {
+export type sendOfferResult : Result {
+  objectId callId;
+}
+
+export call SendOffer : Request => sendOfferResult {
   string username;
   rtcSessionDescriptionOffer offer;
 }
 
 export call SendAnswer : Request => Void {
-  string username;
+  objectId callId;
   rtcSessionDescriptionAnswer answer;
 }

@@ -1,18 +1,29 @@
 import {rtcSessionDescriptionOffer} from "./call";
 import {rtcSessionDescriptionAnswer} from "./call";
 import {ServerMessage} from "./protocol/index";
+import {objectId} from "./objectId";
 import {ISerializer} from "./__types__";
 import {IDeserializer} from "./__types__";
+import {encodeObjectId} from "./objectId";
 import {encodeRtcSessionDescriptionOffer} from "./call";
+import {decodeObjectId} from "./objectId";
 import {decodeRtcSessionDescriptionOffer} from "./call";
+import {defaultObjectId} from "./objectId";
 import {defaultRtcSessionDescriptionOffer} from "./call";
+import {compareObjectId} from "./objectId";
 import {compareRtcSessionDescriptionOffer} from "./call";
-import {compareRtcSessionDescriptionOffer as compareRtcSessionDescriptionOffer1} from "./call";
+import {compareObjectId as compareObjectId1} from "./objectId";
+import {compareRtcSessionDescriptionOffer as compareRtcSessionDescriptionOffer2} from "./call";
+import {encodeObjectId as encodeObjectId3} from "./objectId";
 import {encodeRtcSessionDescriptionAnswer} from "./call";
+import {decodeObjectId as decodeObjectId4} from "./objectId";
 import {decodeRtcSessionDescriptionAnswer} from "./call";
+import {defaultObjectId as defaultObjectId5} from "./objectId";
 import {defaultRtcSessionDescriptionAnswer} from "./call";
+import {compareObjectId as compareObjectId6} from "./objectId";
 import {compareRtcSessionDescriptionAnswer} from "./call";
-import {compareRtcSessionDescriptionAnswer as compareRtcSessionDescriptionAnswer2} from "./call";
+import {compareObjectId as compareObjectId7} from "./objectId";
+import {compareRtcSessionDescriptionAnswer as compareRtcSessionDescriptionAnswer8} from "./call";
 export type Update = Readonly<updateCallOffer> | Readonly<updateCallAnswer>;
 export function encodeUpdateTrait(__s: ISerializer,value: Update) {
   switch(value._name) {
@@ -29,13 +40,13 @@ export function decodeUpdateTrait(__d: IDeserializer) {
   __d.rewindInt32();
   let value: updateCallOffer | updateCallAnswer;
   switch(__id) {
-    case -132977661: {
+    case 1648282623: {
       const tmp = decodeUpdateCallOffer(__d);
       if(tmp === null) return null;
       value = tmp;
       break;
     }
-    case 753412455: {
+    case 800613507: {
       const tmp = decodeUpdateCallAnswer(__d);
       if(tmp === null) return null;
       value = tmp;
@@ -59,46 +70,63 @@ export function compareUpdateTrait(__a: Update, __b: Update) {
   }
 }
 export interface updateCallOfferInputParams {
+  callId: Readonly<objectId>;
   offer: Readonly<rtcSessionDescriptionOffer>;
 }
 export function updateCallOffer(params: updateCallOfferInputParams): updateCallOffer {
   return {
     _name: 'update.updateCallOffer',
+    callId: params['callId'],
     offer: params['offer']
   };
 }
 export function encodeUpdateCallOffer(__s: ISerializer, value: updateCallOffer) {
-  __s.writeInt32(-132977661);
+  __s.writeInt32(1648282623);
+  /**
+   * encoding param: callId
+   */
+  const __pv0 = value['callId'];
+  encodeObjectId(__s,__pv0);
   /**
    * encoding param: offer
    */
-  const __pv0 = value['offer'];
-  encodeRtcSessionDescriptionOffer(__s,__pv0);
+  const __pv1 = value['offer'];
+  encodeRtcSessionDescriptionOffer(__s,__pv1);
 }
 export function decodeUpdateCallOffer(__d: IDeserializer): updateCallOffer | null {
   const __id = __d.readInt32();
   /**
    * decode header
    */
-  if(__id !== -132977661) return null;
+  if(__id !== 1648282623) return null;
+  let callId: objectId;
   let offer: rtcSessionDescriptionOffer;
+  /**
+   * decoding param: callId
+   */
+  const tmp2 = decodeObjectId(__d);
+  if(tmp2 === null) return null;
+  callId = tmp2;
   /**
    * decoding param: offer
    */
-  const tmp2 = decodeRtcSessionDescriptionOffer(__d);
-  if(tmp2 === null) return null;
-  offer = tmp2;
+  const tmp4 = decodeRtcSessionDescriptionOffer(__d);
+  if(tmp4 === null) return null;
+  offer = tmp4;
   return {
     _name: 'update.updateCallOffer',
+    callId,
     offer
   };
 }
 export interface updateCallOffer  {
   _name: 'update.updateCallOffer';
+  callId: Readonly<objectId>;
   offer: Readonly<rtcSessionDescriptionOffer>;
 }
 export function defaultUpdateCallOffer(params: Partial<updateCallOfferInputParams> = {}): updateCallOffer {
   return updateCallOffer({
+    callId: defaultObjectId(),
     offer: defaultRtcSessionDescriptionOffer(),
     ...params
   });
@@ -106,14 +134,26 @@ export function defaultUpdateCallOffer(params: Partial<updateCallOfferInputParam
 export function compareUpdateCallOffer(__a: updateCallOffer, __b: updateCallOffer): boolean {
   return (
     /**
+     * compare parameter callId
+     */
+    compareObjectId(__a['callId'],__b['callId']) &&
+    /**
      * compare parameter offer
      */
     compareRtcSessionDescriptionOffer(__a['offer'],__b['offer'])
   );
 }
 export function updateUpdateCallOffer(value: updateCallOffer, changes: Partial<updateCallOfferInputParams>) {
+  if(typeof changes['callId'] !== 'undefined') {
+    if(!(compareObjectId1(changes['callId'],value['callId']))) {
+      value = updateCallOffer({
+        ...value,
+        callId: changes['callId'],
+      });
+    }
+  }
   if(typeof changes['offer'] !== 'undefined') {
-    if(!(compareRtcSessionDescriptionOffer1(changes['offer'],value['offer']))) {
+    if(!(compareRtcSessionDescriptionOffer2(changes['offer'],value['offer']))) {
       value = updateCallOffer({
         ...value,
         offer: changes['offer'],
@@ -123,46 +163,63 @@ export function updateUpdateCallOffer(value: updateCallOffer, changes: Partial<u
   return value;
 }
 export interface updateCallAnswerInputParams {
+  callId: Readonly<objectId>;
   answer: Readonly<rtcSessionDescriptionAnswer>;
 }
 export function updateCallAnswer(params: updateCallAnswerInputParams): updateCallAnswer {
   return {
     _name: 'update.updateCallAnswer',
+    callId: params['callId'],
     answer: params['answer']
   };
 }
 export function encodeUpdateCallAnswer(__s: ISerializer, value: updateCallAnswer) {
-  __s.writeInt32(753412455);
+  __s.writeInt32(800613507);
+  /**
+   * encoding param: callId
+   */
+  const __pv0 = value['callId'];
+  encodeObjectId3(__s,__pv0);
   /**
    * encoding param: answer
    */
-  const __pv0 = value['answer'];
-  encodeRtcSessionDescriptionAnswer(__s,__pv0);
+  const __pv1 = value['answer'];
+  encodeRtcSessionDescriptionAnswer(__s,__pv1);
 }
 export function decodeUpdateCallAnswer(__d: IDeserializer): updateCallAnswer | null {
   const __id = __d.readInt32();
   /**
    * decode header
    */
-  if(__id !== 753412455) return null;
+  if(__id !== 800613507) return null;
+  let callId: objectId;
   let answer: rtcSessionDescriptionAnswer;
+  /**
+   * decoding param: callId
+   */
+  const tmp2 = decodeObjectId4(__d);
+  if(tmp2 === null) return null;
+  callId = tmp2;
   /**
    * decoding param: answer
    */
-  const tmp2 = decodeRtcSessionDescriptionAnswer(__d);
-  if(tmp2 === null) return null;
-  answer = tmp2;
+  const tmp4 = decodeRtcSessionDescriptionAnswer(__d);
+  if(tmp4 === null) return null;
+  answer = tmp4;
   return {
     _name: 'update.updateCallAnswer',
+    callId,
     answer
   };
 }
 export interface updateCallAnswer  {
   _name: 'update.updateCallAnswer';
+  callId: Readonly<objectId>;
   answer: Readonly<rtcSessionDescriptionAnswer>;
 }
 export function defaultUpdateCallAnswer(params: Partial<updateCallAnswerInputParams> = {}): updateCallAnswer {
   return updateCallAnswer({
+    callId: defaultObjectId(),
     answer: defaultRtcSessionDescriptionAnswer(),
     ...params
   });
@@ -170,14 +227,26 @@ export function defaultUpdateCallAnswer(params: Partial<updateCallAnswerInputPar
 export function compareUpdateCallAnswer(__a: updateCallAnswer, __b: updateCallAnswer): boolean {
   return (
     /**
+     * compare parameter callId
+     */
+    compareObjectId6(__a['callId'],__b['callId']) &&
+    /**
      * compare parameter answer
      */
     compareRtcSessionDescriptionAnswer(__a['answer'],__b['answer'])
   );
 }
 export function updateUpdateCallAnswer(value: updateCallAnswer, changes: Partial<updateCallAnswerInputParams>) {
+  if(typeof changes['callId'] !== 'undefined') {
+    if(!(compareObjectId7(changes['callId'],value['callId']))) {
+      value = updateCallAnswer({
+        ...value,
+        callId: changes['callId'],
+      });
+    }
+  }
   if(typeof changes['answer'] !== 'undefined') {
-    if(!(compareRtcSessionDescriptionAnswer2(changes['answer'],value['answer']))) {
+    if(!(compareRtcSessionDescriptionAnswer8(changes['answer'],value['answer']))) {
       value = updateCallAnswer({
         ...value,
         answer: changes['answer'],

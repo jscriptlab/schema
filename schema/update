@@ -3,14 +3,17 @@ import {
   rtcSessionDescriptionAnswer
 } from "./call";
 import { ServerMessage } from "./protocol/index";
+import { objectId } from "./objectId";
 
 export trait Update {}
 
 export type updateCallOffer : Update {
+  objectId callId;
   rtcSessionDescriptionOffer offer;
 }
 
 export type updateCallAnswer : Update {
+  objectId callId;
   rtcSessionDescriptionAnswer answer;
 }
 
