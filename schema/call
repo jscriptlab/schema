@@ -26,7 +26,22 @@ export call SendOffer : Request => sendOfferResult {
   rtcSessionDescriptionOffer offer;
 }
 
+export call SendRTCIceCandidate : Request => Void {
+  objectId callId;
+  // output of .toJSON() method
+  string candidate;
+}
+
+export trait SendAnswerInput {}
+
+export type sendAnswerInputAccept : SendAnswerInput {
+  rtcSessionDescriptionAnswer description;
+}
+
+// declines the call
+export type sendAnswerInputDecline : SendAnswerInput{}
+
 export call SendAnswer : Request => Void {
   objectId callId;
-  rtcSessionDescriptionAnswer answer;
+  SendAnswerInput value;
 }

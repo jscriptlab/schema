@@ -8,13 +8,23 @@ import { objectId } from "./objectId";
 export trait Update {}
 
 export type updateCallOffer : Update {
+  string username;
   objectId callId;
   rtcSessionDescriptionOffer offer;
+}
+
+export type updateCallRTCIceCandidate : Update {
+  objectId callId;
+  string candidate;
 }
 
 export type updateCallAnswer : Update {
   objectId callId;
   rtcSessionDescriptionAnswer answer;
+}
+
+export type updateCallDrop : Update {
+  objectId callId;
 }
 
 export type Updates : ServerMessage {

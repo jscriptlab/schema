@@ -15,6 +15,11 @@ import {decodeObjectId as decodeObjectId3} from "./objectId";
 import {defaultObjectId as defaultObjectId4} from "./objectId";
 import {compareObjectId as compareObjectId5} from "./objectId";
 import {compareObjectId as compareObjectId6} from "./objectId";
+import {encodeObjectId as encodeObjectId7} from "./objectId";
+import {decodeObjectId as decodeObjectId8} from "./objectId";
+import {defaultObjectId as defaultObjectId9} from "./objectId";
+import {compareObjectId as compareObjectId10} from "./objectId";
+import {compareObjectId as compareObjectId11} from "./objectId";
 export type RTCSessionDescription = Readonly<rtcSessionDescriptionOffer> | Readonly<rtcSessionDescriptionAnswer> | Readonly<rtcSessionDescriptionPreAnswer>;
 export function encodeRTCSessionDescriptionTrait(__s: ISerializer,value: RTCSessionDescription) {
   switch(value._name) {
@@ -440,38 +445,38 @@ export function updateSendOffer(value: SendOffer, changes: Partial<SendOfferInpu
   }
   return value;
 }
-export interface SendAnswerInputParams {
+export interface SendRTCIceCandidateInputParams {
   callId: Readonly<objectId>;
-  answer: Readonly<rtcSessionDescriptionAnswer>;
+  candidate: string;
 }
-export function SendAnswer(params: SendAnswerInputParams): SendAnswer {
+export function SendRTCIceCandidate(params: SendRTCIceCandidateInputParams): SendRTCIceCandidate {
   return {
-    _name: 'call.SendAnswer',
+    _name: 'call.SendRTCIceCandidate',
     callId: params['callId'],
-    answer: params['answer']
+    candidate: params['candidate']
   };
 }
-export function encodeSendAnswer(__s: ISerializer, value: SendAnswer) {
-  __s.writeInt32(16941136);
+export function encodeSendRTCIceCandidate(__s: ISerializer, value: SendRTCIceCandidate) {
+  __s.writeInt32(-1968577916);
   /**
    * encoding param: callId
    */
   const __pv0 = value['callId'];
   encodeObjectId2(__s,__pv0);
   /**
-   * encoding param: answer
+   * encoding param: candidate
    */
-  const __pv1 = value['answer'];
-  encodeRtcSessionDescriptionAnswer(__s,__pv1);
+  const __pv1 = value['candidate'];
+  __s.writeString(__pv1);
 }
-export function decodeSendAnswer(__d: IDeserializer): SendAnswer | null {
+export function decodeSendRTCIceCandidate(__d: IDeserializer): SendRTCIceCandidate | null {
   const __id = __d.readInt32();
   /**
    * decode header
    */
-  if(__id !== 16941136) return null;
+  if(__id !== -1968577916) return null;
   let callId: objectId;
-  let answer: rtcSessionDescriptionAnswer;
+  let candidate: string;
   /**
    * decoding param: callId
    */
@@ -479,26 +484,260 @@ export function decodeSendAnswer(__d: IDeserializer): SendAnswer | null {
   if(tmp2 === null) return null;
   callId = tmp2;
   /**
-   * decoding param: answer
+   * decoding param: candidate
    */
-  const __tmp3 = decodeRtcSessionDescriptionAnswer(__d);
+  candidate = __d.readString();
+  return {
+    _name: 'call.SendRTCIceCandidate',
+    callId,
+    candidate
+  };
+}
+export interface SendRTCIceCandidate extends IRequest<Readonly<Void>> {
+  _name: 'call.SendRTCIceCandidate';
+  callId: Readonly<objectId>;
+  candidate: string;
+}
+export function defaultSendRTCIceCandidate(params: Partial<SendRTCIceCandidateInputParams> = {}): SendRTCIceCandidate {
+  return SendRTCIceCandidate({
+    callId: defaultObjectId(),
+    candidate: "",
+    ...params
+  });
+}
+export function compareSendRTCIceCandidate(__a: SendRTCIceCandidate, __b: SendRTCIceCandidate): boolean {
+  return (
+    /**
+     * compare parameter callId
+     */
+    compareObjectId5(__a['callId'],__b['callId']) &&
+    /**
+     * compare parameter candidate
+     */
+    __a['candidate'] === __b['candidate']
+  );
+}
+export function updateSendRTCIceCandidate(value: SendRTCIceCandidate, changes: Partial<SendRTCIceCandidateInputParams>) {
+  if(typeof changes['callId'] !== 'undefined') {
+    if(!(compareObjectId6(changes['callId'],value['callId']))) {
+      value = SendRTCIceCandidate({
+        ...value,
+        callId: changes['callId'],
+      });
+    }
+  }
+  if(typeof changes['candidate'] !== 'undefined') {
+    if(!(changes['candidate'] === value['candidate'])) {
+      value = SendRTCIceCandidate({
+        ...value,
+        candidate: changes['candidate'],
+      });
+    }
+  }
+  return value;
+}
+export type SendAnswerInput = Readonly<sendAnswerInputAccept> | Readonly<sendAnswerInputDecline>;
+export function encodeSendAnswerInputTrait(__s: ISerializer,value: SendAnswerInput) {
+  switch(value._name) {
+    case 'call.sendAnswerInputAccept':
+      encodeSendAnswerInputAccept(__s,value);
+      break;
+    case 'call.sendAnswerInputDecline':
+      encodeSendAnswerInputDecline(__s,value);
+      break;
+  }
+}
+export function decodeSendAnswerInputTrait(__d: IDeserializer) {
+  const __id = __d.readInt32();
+  __d.rewindInt32();
+  let value: sendAnswerInputAccept | sendAnswerInputDecline;
+  switch(__id) {
+    case 782048345: {
+      const tmp = decodeSendAnswerInputAccept(__d);
+      if(tmp === null) return null;
+      value = tmp;
+      break;
+    }
+    case -1055452011: {
+      const tmp = decodeSendAnswerInputDecline(__d);
+      if(tmp === null) return null;
+      value = tmp;
+      break;
+    }
+    default: return null;
+  }
+  return value;
+}
+export function defaultSendAnswerInputTrait() {
+  return defaultSendAnswerInputAccept();
+}
+export function compareSendAnswerInputTrait(__a: SendAnswerInput, __b: SendAnswerInput) {
+  switch(__a._name) {
+    case 'call.sendAnswerInputAccept':
+      if(__b._name !== "call.sendAnswerInputAccept") return false;
+      return compareSendAnswerInputAccept(__a,__b);
+    case 'call.sendAnswerInputDecline':
+      if(__b._name !== "call.sendAnswerInputDecline") return false;
+      return compareSendAnswerInputDecline(__a,__b);
+  }
+}
+export interface sendAnswerInputAcceptInputParams {
+  description: Readonly<rtcSessionDescriptionAnswer>;
+}
+export function sendAnswerInputAccept(params: sendAnswerInputAcceptInputParams): sendAnswerInputAccept {
+  return {
+    _name: 'call.sendAnswerInputAccept',
+    description: params['description']
+  };
+}
+export function encodeSendAnswerInputAccept(__s: ISerializer, value: sendAnswerInputAccept) {
+  __s.writeInt32(782048345);
+  /**
+   * encoding param: description
+   */
+  const __pv0 = value['description'];
+  encodeRtcSessionDescriptionAnswer(__s,__pv0);
+}
+export function decodeSendAnswerInputAccept(__d: IDeserializer): sendAnswerInputAccept | null {
+  const __id = __d.readInt32();
+  /**
+   * decode header
+   */
+  if(__id !== 782048345) return null;
+  let description: rtcSessionDescriptionAnswer;
+  /**
+   * decoding param: description
+   */
+  const __tmp1 = decodeRtcSessionDescriptionAnswer(__d);
+  if(__tmp1 === null) return null;
+  description = __tmp1;
+  return {
+    _name: 'call.sendAnswerInputAccept',
+    description
+  };
+}
+export interface sendAnswerInputAccept  {
+  _name: 'call.sendAnswerInputAccept';
+  description: Readonly<rtcSessionDescriptionAnswer>;
+}
+export function defaultSendAnswerInputAccept(params: Partial<sendAnswerInputAcceptInputParams> = {}): sendAnswerInputAccept {
+  return sendAnswerInputAccept({
+    description: defaultRtcSessionDescriptionAnswer(),
+    ...params
+  });
+}
+export function compareSendAnswerInputAccept(__a: sendAnswerInputAccept, __b: sendAnswerInputAccept): boolean {
+  return (
+    /**
+     * compare parameter description
+     */
+    compareRtcSessionDescriptionAnswer(__a['description'],__b['description'])
+  );
+}
+export function updateSendAnswerInputAccept(value: sendAnswerInputAccept, changes: Partial<sendAnswerInputAcceptInputParams>) {
+  if(typeof changes['description'] !== 'undefined') {
+    if(!(compareRtcSessionDescriptionAnswer(changes['description'],value['description']))) {
+      value = sendAnswerInputAccept({
+        ...value,
+        description: changes['description'],
+      });
+    }
+  }
+  return value;
+}
+export interface sendAnswerInputDeclineInputParams {
+}
+export function sendAnswerInputDecline(_: sendAnswerInputDeclineInputParams = {}): sendAnswerInputDecline {
+  return {
+    _name: 'call.sendAnswerInputDecline'
+  };
+}
+export function encodeSendAnswerInputDecline(__s: ISerializer, _: sendAnswerInputDecline) {
+  __s.writeInt32(-1055452011);
+}
+export function decodeSendAnswerInputDecline(__d: IDeserializer): sendAnswerInputDecline | null {
+  const __id = __d.readInt32();
+  /**
+   * decode header
+   */
+  if(__id !== -1055452011) return null;
+  return {
+    _name: 'call.sendAnswerInputDecline',
+  };
+}
+export interface sendAnswerInputDecline  {
+  _name: 'call.sendAnswerInputDecline';
+}
+export function defaultSendAnswerInputDecline(params: Partial<sendAnswerInputDeclineInputParams> = {}): sendAnswerInputDecline {
+  return sendAnswerInputDecline({
+    ...params
+  });
+}
+export function compareSendAnswerInputDecline(__a: sendAnswerInputDecline, __b: sendAnswerInputDecline): boolean {
+  return true;
+}
+export function updateSendAnswerInputDecline(value: sendAnswerInputDecline, _: Partial<sendAnswerInputDeclineInputParams>) {
+  return value;
+}
+export interface SendAnswerInputParams {
+  callId: Readonly<objectId>;
+  value: Readonly<SendAnswerInput>;
+}
+export function SendAnswer(params: SendAnswerInputParams): SendAnswer {
+  return {
+    _name: 'call.SendAnswer',
+    callId: params['callId'],
+    value: params['value']
+  };
+}
+export function encodeSendAnswer(__s: ISerializer, value: SendAnswer) {
+  __s.writeInt32(-1458394690);
+  /**
+   * encoding param: callId
+   */
+  const __pv0 = value['callId'];
+  encodeObjectId7(__s,__pv0);
+  /**
+   * encoding param: value
+   */
+  const __pv1 = value['value'];
+  encodeSendAnswerInputTrait(__s,__pv1);
+}
+export function decodeSendAnswer(__d: IDeserializer): SendAnswer | null {
+  const __id = __d.readInt32();
+  /**
+   * decode header
+   */
+  if(__id !== -1458394690) return null;
+  let callId: objectId;
+  let value: SendAnswerInput;
+  /**
+   * decoding param: callId
+   */
+  const tmp2 = decodeObjectId8(__d);
+  if(tmp2 === null) return null;
+  callId = tmp2;
+  /**
+   * decoding param: value
+   */
+  const __tmp3 = decodeSendAnswerInputTrait(__d);
   if(__tmp3 === null) return null;
-  answer = __tmp3;
+  value = __tmp3;
   return {
     _name: 'call.SendAnswer',
     callId,
-    answer
+    value
   };
 }
 export interface SendAnswer extends IRequest<Readonly<Void>> {
   _name: 'call.SendAnswer';
   callId: Readonly<objectId>;
-  answer: Readonly<rtcSessionDescriptionAnswer>;
+  value: Readonly<SendAnswerInput>;
 }
 export function defaultSendAnswer(params: Partial<SendAnswerInputParams> = {}): SendAnswer {
   return SendAnswer({
     callId: defaultObjectId(),
-    answer: defaultRtcSessionDescriptionAnswer(),
+    value: defaultSendAnswerInputTrait(),
     ...params
   });
 }
@@ -507,27 +746,27 @@ export function compareSendAnswer(__a: SendAnswer, __b: SendAnswer): boolean {
     /**
      * compare parameter callId
      */
-    compareObjectId5(__a['callId'],__b['callId']) &&
+    compareObjectId10(__a['callId'],__b['callId']) &&
     /**
-     * compare parameter answer
+     * compare parameter value
      */
-    compareRtcSessionDescriptionAnswer(__a['answer'],__b['answer'])
+    compareSendAnswerInputTrait(__a['value'],__b['value'])
   );
 }
 export function updateSendAnswer(value: SendAnswer, changes: Partial<SendAnswerInputParams>) {
   if(typeof changes['callId'] !== 'undefined') {
-    if(!(compareObjectId6(changes['callId'],value['callId']))) {
+    if(!(compareObjectId11(changes['callId'],value['callId']))) {
       value = SendAnswer({
         ...value,
         callId: changes['callId'],
       });
     }
   }
-  if(typeof changes['answer'] !== 'undefined') {
-    if(!(compareRtcSessionDescriptionAnswer(changes['answer'],value['answer']))) {
+  if(typeof changes['value'] !== 'undefined') {
+    if(!(compareSendAnswerInputTrait(changes['value'],value['value']))) {
       value = SendAnswer({
         ...value,
-        answer: changes['answer'],
+        value: changes['value'],
       });
     }
   }
