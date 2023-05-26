@@ -15,7 +15,7 @@
     "schema": "npx jsbuffer schema/index -o src --extends tsconfig.base.json --indentation-size 2"
   },
   "name": "@jscriptlab/schema",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "devDependencies": {
     "package-utilities": "^0.0.6",
     "typescript": "5.x"
