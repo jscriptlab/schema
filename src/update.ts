@@ -34,7 +34,17 @@ import {decodeObjectId as decodeObjectId15} from "./objectId";
 import {defaultObjectId as defaultObjectId16} from "./objectId";
 import {compareObjectId as compareObjectId17} from "./objectId";
 import {compareObjectId as compareObjectId18} from "./objectId";
-export type Update = Readonly<updateCallOffer> | Readonly<updateCallRTCIceCandidate> | Readonly<updateCallAnswer> | Readonly<updateCallDrop>;
+import {encodeObjectId as encodeObjectId19} from "./objectId";
+import {decodeObjectId as decodeObjectId20} from "./objectId";
+import {defaultObjectId as defaultObjectId21} from "./objectId";
+import {compareObjectId as compareObjectId22} from "./objectId";
+import {compareObjectId as compareObjectId23} from "./objectId";
+import {encodeObjectId as encodeObjectId24} from "./objectId";
+import {decodeObjectId as decodeObjectId25} from "./objectId";
+import {defaultObjectId as defaultObjectId26} from "./objectId";
+import {compareObjectId as compareObjectId27} from "./objectId";
+import {compareObjectId as compareObjectId28} from "./objectId";
+export type Update = Readonly<updateCallOffer> | Readonly<updateCallRTCIceCandidate> | Readonly<updateCallAnswer> | Readonly<updateCallDrop> | Readonly<updateCallStarted> | Readonly<updateCallVideoEnabledStateChange>;
 export function encodeUpdateTrait(__s: ISerializer,value: Update) {
   switch(value._name) {
     case 'update.updateCallOffer':
@@ -49,14 +59,20 @@ export function encodeUpdateTrait(__s: ISerializer,value: Update) {
     case 'update.updateCallDrop':
       encodeUpdateCallDrop(__s,value);
       break;
+    case 'update.updateCallStarted':
+      encodeUpdateCallStarted(__s,value);
+      break;
+    case 'update.updateCallVideoEnabledStateChange':
+      encodeUpdateCallVideoEnabledStateChange(__s,value);
+      break;
   }
 }
 export function decodeUpdateTrait(__d: IDeserializer) {
   const __id = __d.readInt32();
   __d.rewindInt32();
-  let value: updateCallOffer | updateCallRTCIceCandidate | updateCallAnswer | updateCallDrop;
+  let value: updateCallOffer | updateCallRTCIceCandidate | updateCallAnswer | updateCallDrop | updateCallStarted | updateCallVideoEnabledStateChange;
   switch(__id) {
-    case -178486657: {
+    case -209857133: {
       const tmp = decodeUpdateCallOffer(__d);
       if(tmp === null) return null;
       value = tmp;
@@ -68,7 +84,7 @@ export function decodeUpdateTrait(__d: IDeserializer) {
       value = tmp;
       break;
     }
-    case 800613507: {
+    case -2109049674: {
       const tmp = decodeUpdateCallAnswer(__d);
       if(tmp === null) return null;
       value = tmp;
@@ -76,6 +92,18 @@ export function decodeUpdateTrait(__d: IDeserializer) {
     }
     case 1912667881: {
       const tmp = decodeUpdateCallDrop(__d);
+      if(tmp === null) return null;
+      value = tmp;
+      break;
+    }
+    case -243424417: {
+      const tmp = decodeUpdateCallStarted(__d);
+      if(tmp === null) return null;
+      value = tmp;
+      break;
+    }
+    case 545077796: {
+      const tmp = decodeUpdateCallVideoEnabledStateChange(__d);
       if(tmp === null) return null;
       value = tmp;
       break;
@@ -101,23 +129,31 @@ export function compareUpdateTrait(__a: Update, __b: Update) {
     case 'update.updateCallDrop':
       if(__b._name !== "update.updateCallDrop") return false;
       return compareUpdateCallDrop(__a,__b);
+    case 'update.updateCallStarted':
+      if(__b._name !== "update.updateCallStarted") return false;
+      return compareUpdateCallStarted(__a,__b);
+    case 'update.updateCallVideoEnabledStateChange':
+      if(__b._name !== "update.updateCallVideoEnabledStateChange") return false;
+      return compareUpdateCallVideoEnabledStateChange(__a,__b);
   }
 }
 export interface updateCallOfferInputParams {
   username: string;
   callId: Readonly<objectId>;
   offer: Readonly<rtcSessionDescriptionOffer>;
+  videoEnabled: boolean;
 }
 export function updateCallOffer(params: updateCallOfferInputParams): updateCallOffer {
   return {
     _name: 'update.updateCallOffer',
     username: params['username'],
     callId: params['callId'],
-    offer: params['offer']
+    offer: params['offer'],
+    videoEnabled: params['videoEnabled']
   };
 }
 export function encodeUpdateCallOffer(__s: ISerializer, value: updateCallOffer) {
-  __s.writeInt32(-178486657);
+  __s.writeInt32(-209857133);
   /**
    * encoding param: username
    */
@@ -133,16 +169,22 @@ export function encodeUpdateCallOffer(__s: ISerializer, value: updateCallOffer) 
    */
   const __pv2 = value['offer'];
   encodeRtcSessionDescriptionOffer(__s,__pv2);
+  /**
+   * encoding param: videoEnabled
+   */
+  const __pv3 = value['videoEnabled'];
+  __s.writeUint8(__pv3 === true ? 1 : 0);
 }
 export function decodeUpdateCallOffer(__d: IDeserializer): updateCallOffer | null {
   const __id = __d.readInt32();
   /**
    * decode header
    */
-  if(__id !== -178486657) return null;
+  if(__id !== -209857133) return null;
   let username: string;
   let callId: objectId;
   let offer: rtcSessionDescriptionOffer;
+  let videoEnabled: boolean;
   /**
    * decoding param: username
    */
@@ -159,11 +201,16 @@ export function decodeUpdateCallOffer(__d: IDeserializer): updateCallOffer | nul
   const tmp5 = decodeRtcSessionDescriptionOffer(__d);
   if(tmp5 === null) return null;
   offer = tmp5;
+  /**
+   * decoding param: videoEnabled
+   */
+  videoEnabled = __d.readUint8() === 1;
   return {
     _name: 'update.updateCallOffer',
     username,
     callId,
-    offer
+    offer,
+    videoEnabled
   };
 }
 export interface updateCallOffer  {
@@ -171,12 +218,14 @@ export interface updateCallOffer  {
   username: string;
   callId: Readonly<objectId>;
   offer: Readonly<rtcSessionDescriptionOffer>;
+  videoEnabled: boolean;
 }
 export function defaultUpdateCallOffer(params: Partial<updateCallOfferInputParams> = {}): updateCallOffer {
   return updateCallOffer({
     username: "",
     callId: defaultObjectId(),
     offer: defaultRtcSessionDescriptionOffer(),
+    videoEnabled: false,
     ...params
   });
 }
@@ -193,7 +242,11 @@ export function compareUpdateCallOffer(__a: updateCallOffer, __b: updateCallOffe
     /**
      * compare parameter offer
      */
-    compareRtcSessionDescriptionOffer(__a['offer'],__b['offer'])
+    compareRtcSessionDescriptionOffer(__a['offer'],__b['offer']) &&
+    /**
+     * compare parameter videoEnabled
+     */
+    __a['videoEnabled'] === __b['videoEnabled']
   );
 }
 export function updateUpdateCallOffer(value: updateCallOffer, changes: Partial<updateCallOfferInputParams>) {
@@ -218,6 +271,14 @@ export function updateUpdateCallOffer(value: updateCallOffer, changes: Partial<u
       value = updateCallOffer({
         ...value,
         offer: changes['offer'],
+      });
+    }
+  }
+  if(typeof changes['videoEnabled'] !== 'undefined') {
+    if(!(changes['videoEnabled'] === value['videoEnabled'])) {
+      value = updateCallOffer({
+        ...value,
+        videoEnabled: changes['videoEnabled'],
       });
     }
   }
@@ -317,16 +378,18 @@ export function updateUpdateCallRTCIceCandidate(value: updateCallRTCIceCandidate
 export interface updateCallAnswerInputParams {
   callId: Readonly<objectId>;
   answer: Readonly<rtcSessionDescriptionAnswer>;
+  videoEnabled: boolean;
 }
 export function updateCallAnswer(params: updateCallAnswerInputParams): updateCallAnswer {
   return {
     _name: 'update.updateCallAnswer',
     callId: params['callId'],
-    answer: params['answer']
+    answer: params['answer'],
+    videoEnabled: params['videoEnabled']
   };
 }
 export function encodeUpdateCallAnswer(__s: ISerializer, value: updateCallAnswer) {
-  __s.writeInt32(800613507);
+  __s.writeInt32(-2109049674);
   /**
    * encoding param: callId
    */
@@ -337,15 +400,21 @@ export function encodeUpdateCallAnswer(__s: ISerializer, value: updateCallAnswer
    */
   const __pv1 = value['answer'];
   encodeRtcSessionDescriptionAnswer(__s,__pv1);
+  /**
+   * encoding param: videoEnabled
+   */
+  const __pv2 = value['videoEnabled'];
+  __s.writeUint8(__pv2 === true ? 1 : 0);
 }
 export function decodeUpdateCallAnswer(__d: IDeserializer): updateCallAnswer | null {
   const __id = __d.readInt32();
   /**
    * decode header
    */
-  if(__id !== 800613507) return null;
+  if(__id !== -2109049674) return null;
   let callId: objectId;
   let answer: rtcSessionDescriptionAnswer;
+  let videoEnabled: boolean;
   /**
    * decoding param: callId
    */
@@ -358,21 +427,28 @@ export function decodeUpdateCallAnswer(__d: IDeserializer): updateCallAnswer | n
   const tmp4 = decodeRtcSessionDescriptionAnswer(__d);
   if(tmp4 === null) return null;
   answer = tmp4;
+  /**
+   * decoding param: videoEnabled
+   */
+  videoEnabled = __d.readUint8() === 1;
   return {
     _name: 'update.updateCallAnswer',
     callId,
-    answer
+    answer,
+    videoEnabled
   };
 }
 export interface updateCallAnswer  {
   _name: 'update.updateCallAnswer';
   callId: Readonly<objectId>;
   answer: Readonly<rtcSessionDescriptionAnswer>;
+  videoEnabled: boolean;
 }
 export function defaultUpdateCallAnswer(params: Partial<updateCallAnswerInputParams> = {}): updateCallAnswer {
   return updateCallAnswer({
     callId: defaultObjectId(),
     answer: defaultRtcSessionDescriptionAnswer(),
+    videoEnabled: false,
     ...params
   });
 }
@@ -385,7 +461,11 @@ export function compareUpdateCallAnswer(__a: updateCallAnswer, __b: updateCallAn
     /**
      * compare parameter answer
      */
-    compareRtcSessionDescriptionAnswer(__a['answer'],__b['answer'])
+    compareRtcSessionDescriptionAnswer(__a['answer'],__b['answer']) &&
+    /**
+     * compare parameter videoEnabled
+     */
+    __a['videoEnabled'] === __b['videoEnabled']
   );
 }
 export function updateUpdateCallAnswer(value: updateCallAnswer, changes: Partial<updateCallAnswerInputParams>) {
@@ -402,6 +482,14 @@ export function updateUpdateCallAnswer(value: updateCallAnswer, changes: Partial
       value = updateCallAnswer({
         ...value,
         answer: changes['answer'],
+      });
+    }
+  }
+  if(typeof changes['videoEnabled'] !== 'undefined') {
+    if(!(changes['videoEnabled'] === value['videoEnabled'])) {
+      value = updateCallAnswer({
+        ...value,
+        videoEnabled: changes['videoEnabled'],
       });
     }
   }
@@ -466,6 +554,161 @@ export function updateUpdateCallDrop(value: updateCallDrop, changes: Partial<upd
       value = updateCallDrop({
         ...value,
         callId: changes['callId'],
+      });
+    }
+  }
+  return value;
+}
+export interface updateCallStartedInputParams {
+  callId: Readonly<objectId>;
+}
+export function updateCallStarted(params: updateCallStartedInputParams): updateCallStarted {
+  return {
+    _name: 'update.updateCallStarted',
+    callId: params['callId']
+  };
+}
+export function encodeUpdateCallStarted(__s: ISerializer, value: updateCallStarted) {
+  __s.writeInt32(-243424417);
+  /**
+   * encoding param: callId
+   */
+  const __pv0 = value['callId'];
+  encodeObjectId19(__s,__pv0);
+}
+export function decodeUpdateCallStarted(__d: IDeserializer): updateCallStarted | null {
+  const __id = __d.readInt32();
+  /**
+   * decode header
+   */
+  if(__id !== -243424417) return null;
+  let callId: objectId;
+  /**
+   * decoding param: callId
+   */
+  const tmp2 = decodeObjectId20(__d);
+  if(tmp2 === null) return null;
+  callId = tmp2;
+  return {
+    _name: 'update.updateCallStarted',
+    callId
+  };
+}
+export interface updateCallStarted  {
+  _name: 'update.updateCallStarted';
+  callId: Readonly<objectId>;
+}
+export function defaultUpdateCallStarted(params: Partial<updateCallStartedInputParams> = {}): updateCallStarted {
+  return updateCallStarted({
+    callId: defaultObjectId(),
+    ...params
+  });
+}
+export function compareUpdateCallStarted(__a: updateCallStarted, __b: updateCallStarted): boolean {
+  return (
+    /**
+     * compare parameter callId
+     */
+    compareObjectId22(__a['callId'],__b['callId'])
+  );
+}
+export function updateUpdateCallStarted(value: updateCallStarted, changes: Partial<updateCallStartedInputParams>) {
+  if(typeof changes['callId'] !== 'undefined') {
+    if(!(compareObjectId23(changes['callId'],value['callId']))) {
+      value = updateCallStarted({
+        ...value,
+        callId: changes['callId'],
+      });
+    }
+  }
+  return value;
+}
+export interface updateCallVideoEnabledStateChangeInputParams {
+  callId: Readonly<objectId>;
+  videoEnabled: boolean;
+}
+export function updateCallVideoEnabledStateChange(params: updateCallVideoEnabledStateChangeInputParams): updateCallVideoEnabledStateChange {
+  return {
+    _name: 'update.updateCallVideoEnabledStateChange',
+    callId: params['callId'],
+    videoEnabled: params['videoEnabled']
+  };
+}
+export function encodeUpdateCallVideoEnabledStateChange(__s: ISerializer, value: updateCallVideoEnabledStateChange) {
+  __s.writeInt32(545077796);
+  /**
+   * encoding param: callId
+   */
+  const __pv0 = value['callId'];
+  encodeObjectId24(__s,__pv0);
+  /**
+   * encoding param: videoEnabled
+   */
+  const __pv1 = value['videoEnabled'];
+  __s.writeUint8(__pv1 === true ? 1 : 0);
+}
+export function decodeUpdateCallVideoEnabledStateChange(__d: IDeserializer): updateCallVideoEnabledStateChange | null {
+  const __id = __d.readInt32();
+  /**
+   * decode header
+   */
+  if(__id !== 545077796) return null;
+  let callId: objectId;
+  let videoEnabled: boolean;
+  /**
+   * decoding param: callId
+   */
+  const tmp2 = decodeObjectId25(__d);
+  if(tmp2 === null) return null;
+  callId = tmp2;
+  /**
+   * decoding param: videoEnabled
+   */
+  videoEnabled = __d.readUint8() === 1;
+  return {
+    _name: 'update.updateCallVideoEnabledStateChange',
+    callId,
+    videoEnabled
+  };
+}
+export interface updateCallVideoEnabledStateChange  {
+  _name: 'update.updateCallVideoEnabledStateChange';
+  callId: Readonly<objectId>;
+  videoEnabled: boolean;
+}
+export function defaultUpdateCallVideoEnabledStateChange(params: Partial<updateCallVideoEnabledStateChangeInputParams> = {}): updateCallVideoEnabledStateChange {
+  return updateCallVideoEnabledStateChange({
+    callId: defaultObjectId(),
+    videoEnabled: false,
+    ...params
+  });
+}
+export function compareUpdateCallVideoEnabledStateChange(__a: updateCallVideoEnabledStateChange, __b: updateCallVideoEnabledStateChange): boolean {
+  return (
+    /**
+     * compare parameter callId
+     */
+    compareObjectId27(__a['callId'],__b['callId']) &&
+    /**
+     * compare parameter videoEnabled
+     */
+    __a['videoEnabled'] === __b['videoEnabled']
+  );
+}
+export function updateUpdateCallVideoEnabledStateChange(value: updateCallVideoEnabledStateChange, changes: Partial<updateCallVideoEnabledStateChangeInputParams>) {
+  if(typeof changes['callId'] !== 'undefined') {
+    if(!(compareObjectId28(changes['callId'],value['callId']))) {
+      value = updateCallVideoEnabledStateChange({
+        ...value,
+        callId: changes['callId'],
+      });
+    }
+  }
+  if(typeof changes['videoEnabled'] !== 'undefined') {
+    if(!(changes['videoEnabled'] === value['videoEnabled'])) {
+      value = updateCallVideoEnabledStateChange({
+        ...value,
+        videoEnabled: changes['videoEnabled'],
       });
     }
   }

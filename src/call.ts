@@ -20,6 +20,11 @@ import {decodeObjectId as decodeObjectId8} from "./objectId";
 import {defaultObjectId as defaultObjectId9} from "./objectId";
 import {compareObjectId as compareObjectId10} from "./objectId";
 import {compareObjectId as compareObjectId11} from "./objectId";
+import {encodeObjectId as encodeObjectId12} from "./objectId";
+import {decodeObjectId as decodeObjectId13} from "./objectId";
+import {defaultObjectId as defaultObjectId14} from "./objectId";
+import {compareObjectId as compareObjectId15} from "./objectId";
+import {compareObjectId as compareObjectId16} from "./objectId";
 export type RTCSessionDescription = Readonly<rtcSessionDescriptionOffer> | Readonly<rtcSessionDescriptionAnswer> | Readonly<rtcSessionDescriptionPreAnswer>;
 export function encodeRTCSessionDescriptionTrait(__s: ISerializer,value: RTCSessionDescription) {
   switch(value._name) {
@@ -357,16 +362,18 @@ export function updateSendOfferResult(value: sendOfferResult, changes: Partial<s
 export interface SendOfferInputParams {
   username: string;
   offer: Readonly<rtcSessionDescriptionOffer>;
+  videoEnabled: boolean;
 }
 export function SendOffer(params: SendOfferInputParams): SendOffer {
   return {
     _name: 'call.SendOffer',
     username: params['username'],
-    offer: params['offer']
+    offer: params['offer'],
+    videoEnabled: params['videoEnabled']
   };
 }
 export function encodeSendOffer(__s: ISerializer, value: SendOffer) {
-  __s.writeInt32(419052098);
+  __s.writeInt32(-1481518836);
   /**
    * encoding param: username
    */
@@ -377,15 +384,21 @@ export function encodeSendOffer(__s: ISerializer, value: SendOffer) {
    */
   const __pv1 = value['offer'];
   encodeRtcSessionDescriptionOffer(__s,__pv1);
+  /**
+   * encoding param: videoEnabled
+   */
+  const __pv2 = value['videoEnabled'];
+  __s.writeUint8(__pv2 === true ? 1 : 0);
 }
 export function decodeSendOffer(__d: IDeserializer): SendOffer | null {
   const __id = __d.readInt32();
   /**
    * decode header
    */
-  if(__id !== 419052098) return null;
+  if(__id !== -1481518836) return null;
   let username: string;
   let offer: rtcSessionDescriptionOffer;
+  let videoEnabled: boolean;
   /**
    * decoding param: username
    */
@@ -396,21 +409,28 @@ export function decodeSendOffer(__d: IDeserializer): SendOffer | null {
   const __tmp2 = decodeRtcSessionDescriptionOffer(__d);
   if(__tmp2 === null) return null;
   offer = __tmp2;
+  /**
+   * decoding param: videoEnabled
+   */
+  videoEnabled = __d.readUint8() === 1;
   return {
     _name: 'call.SendOffer',
     username,
-    offer
+    offer,
+    videoEnabled
   };
 }
 export interface SendOffer extends IRequest<Readonly<sendOfferResult>> {
   _name: 'call.SendOffer';
   username: string;
   offer: Readonly<rtcSessionDescriptionOffer>;
+  videoEnabled: boolean;
 }
 export function defaultSendOffer(params: Partial<SendOfferInputParams> = {}): SendOffer {
   return SendOffer({
     username: "",
     offer: defaultRtcSessionDescriptionOffer(),
+    videoEnabled: false,
     ...params
   });
 }
@@ -423,7 +443,11 @@ export function compareSendOffer(__a: SendOffer, __b: SendOffer): boolean {
     /**
      * compare parameter offer
      */
-    compareRtcSessionDescriptionOffer(__a['offer'],__b['offer'])
+    compareRtcSessionDescriptionOffer(__a['offer'],__b['offer']) &&
+    /**
+     * compare parameter videoEnabled
+     */
+    __a['videoEnabled'] === __b['videoEnabled']
   );
 }
 export function updateSendOffer(value: SendOffer, changes: Partial<SendOfferInputParams>) {
@@ -440,6 +464,14 @@ export function updateSendOffer(value: SendOffer, changes: Partial<SendOfferInpu
       value = SendOffer({
         ...value,
         offer: changes['offer'],
+      });
+    }
+  }
+  if(typeof changes['videoEnabled'] !== 'undefined') {
+    if(!(changes['videoEnabled'] === value['videoEnabled'])) {
+      value = SendOffer({
+        ...value,
+        videoEnabled: changes['videoEnabled'],
       });
     }
   }
@@ -552,7 +584,7 @@ export function decodeSendAnswerInputTrait(__d: IDeserializer) {
   __d.rewindInt32();
   let value: sendAnswerInputAccept | sendAnswerInputDecline;
   switch(__id) {
-    case 782048345: {
+    case 705687722: {
       const tmp = decodeSendAnswerInputAccept(__d);
       if(tmp === null) return null;
       value = tmp;
@@ -583,46 +615,61 @@ export function compareSendAnswerInputTrait(__a: SendAnswerInput, __b: SendAnswe
 }
 export interface sendAnswerInputAcceptInputParams {
   description: Readonly<rtcSessionDescriptionAnswer>;
+  videoEnabled: boolean;
 }
 export function sendAnswerInputAccept(params: sendAnswerInputAcceptInputParams): sendAnswerInputAccept {
   return {
     _name: 'call.sendAnswerInputAccept',
-    description: params['description']
+    description: params['description'],
+    videoEnabled: params['videoEnabled']
   };
 }
 export function encodeSendAnswerInputAccept(__s: ISerializer, value: sendAnswerInputAccept) {
-  __s.writeInt32(782048345);
+  __s.writeInt32(705687722);
   /**
    * encoding param: description
    */
   const __pv0 = value['description'];
   encodeRtcSessionDescriptionAnswer(__s,__pv0);
+  /**
+   * encoding param: videoEnabled
+   */
+  const __pv1 = value['videoEnabled'];
+  __s.writeUint8(__pv1 === true ? 1 : 0);
 }
 export function decodeSendAnswerInputAccept(__d: IDeserializer): sendAnswerInputAccept | null {
   const __id = __d.readInt32();
   /**
    * decode header
    */
-  if(__id !== 782048345) return null;
+  if(__id !== 705687722) return null;
   let description: rtcSessionDescriptionAnswer;
+  let videoEnabled: boolean;
   /**
    * decoding param: description
    */
   const __tmp1 = decodeRtcSessionDescriptionAnswer(__d);
   if(__tmp1 === null) return null;
   description = __tmp1;
+  /**
+   * decoding param: videoEnabled
+   */
+  videoEnabled = __d.readUint8() === 1;
   return {
     _name: 'call.sendAnswerInputAccept',
-    description
+    description,
+    videoEnabled
   };
 }
 export interface sendAnswerInputAccept  {
   _name: 'call.sendAnswerInputAccept';
   description: Readonly<rtcSessionDescriptionAnswer>;
+  videoEnabled: boolean;
 }
 export function defaultSendAnswerInputAccept(params: Partial<sendAnswerInputAcceptInputParams> = {}): sendAnswerInputAccept {
   return sendAnswerInputAccept({
     description: defaultRtcSessionDescriptionAnswer(),
+    videoEnabled: false,
     ...params
   });
 }
@@ -631,7 +678,11 @@ export function compareSendAnswerInputAccept(__a: sendAnswerInputAccept, __b: se
     /**
      * compare parameter description
      */
-    compareRtcSessionDescriptionAnswer(__a['description'],__b['description'])
+    compareRtcSessionDescriptionAnswer(__a['description'],__b['description']) &&
+    /**
+     * compare parameter videoEnabled
+     */
+    __a['videoEnabled'] === __b['videoEnabled']
   );
 }
 export function updateSendAnswerInputAccept(value: sendAnswerInputAccept, changes: Partial<sendAnswerInputAcceptInputParams>) {
@@ -640,6 +691,14 @@ export function updateSendAnswerInputAccept(value: sendAnswerInputAccept, change
       value = sendAnswerInputAccept({
         ...value,
         description: changes['description'],
+      });
+    }
+  }
+  if(typeof changes['videoEnabled'] !== 'undefined') {
+    if(!(changes['videoEnabled'] === value['videoEnabled'])) {
+      value = sendAnswerInputAccept({
+        ...value,
+        videoEnabled: changes['videoEnabled'],
       });
     }
   }
@@ -767,6 +826,97 @@ export function updateSendAnswer(value: SendAnswer, changes: Partial<SendAnswerI
       value = SendAnswer({
         ...value,
         value: changes['value'],
+      });
+    }
+  }
+  return value;
+}
+export interface SetConnectedStateInputParams {
+  callId: Readonly<objectId>;
+  connected: boolean;
+}
+export function SetConnectedState(params: SetConnectedStateInputParams): SetConnectedState {
+  return {
+    _name: 'call.SetConnectedState',
+    callId: params['callId'],
+    connected: params['connected']
+  };
+}
+export function encodeSetConnectedState(__s: ISerializer, value: SetConnectedState) {
+  __s.writeInt32(904655994);
+  /**
+   * encoding param: callId
+   */
+  const __pv0 = value['callId'];
+  encodeObjectId12(__s,__pv0);
+  /**
+   * encoding param: connected
+   */
+  const __pv1 = value['connected'];
+  __s.writeUint8(__pv1 === true ? 1 : 0);
+}
+export function decodeSetConnectedState(__d: IDeserializer): SetConnectedState | null {
+  const __id = __d.readInt32();
+  /**
+   * decode header
+   */
+  if(__id !== 904655994) return null;
+  let callId: objectId;
+  let connected: boolean;
+  /**
+   * decoding param: callId
+   */
+  const tmp2 = decodeObjectId13(__d);
+  if(tmp2 === null) return null;
+  callId = tmp2;
+  /**
+   * decoding param: connected
+   */
+  connected = __d.readUint8() === 1;
+  return {
+    _name: 'call.SetConnectedState',
+    callId,
+    connected
+  };
+}
+export interface SetConnectedState extends IRequest<Readonly<Void>> {
+  _name: 'call.SetConnectedState';
+  callId: Readonly<objectId>;
+  connected: boolean;
+}
+export function defaultSetConnectedState(params: Partial<SetConnectedStateInputParams> = {}): SetConnectedState {
+  return SetConnectedState({
+    callId: defaultObjectId(),
+    connected: false,
+    ...params
+  });
+}
+export function compareSetConnectedState(__a: SetConnectedState, __b: SetConnectedState): boolean {
+  return (
+    /**
+     * compare parameter callId
+     */
+    compareObjectId15(__a['callId'],__b['callId']) &&
+    /**
+     * compare parameter connected
+     */
+    __a['connected'] === __b['connected']
+  );
+}
+export function updateSetConnectedState(value: SetConnectedState, changes: Partial<SetConnectedStateInputParams>) {
+  if(typeof changes['callId'] !== 'undefined') {
+    if(!(compareObjectId16(changes['callId'],value['callId']))) {
+      value = SetConnectedState({
+        ...value,
+        callId: changes['callId'],
+      });
+    }
+  }
+  if(typeof changes['connected'] !== 'undefined') {
+    if(!(changes['connected'] === value['connected'])) {
+      value = SetConnectedState({
+        ...value,
+        connected: changes['connected'],
       });
     }
   }

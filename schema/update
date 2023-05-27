@@ -11,6 +11,8 @@ export type updateCallOffer : Update {
   string username;
   objectId callId;
   rtcSessionDescriptionOffer offer;
+  // whether remove video is enabled or not
+  bool videoEnabled;
 }
 
 export type updateCallRTCIceCandidate : Update {
@@ -21,10 +23,21 @@ export type updateCallRTCIceCandidate : Update {
 export type updateCallAnswer : Update {
   objectId callId;
   rtcSessionDescriptionAnswer answer;
+  // whether other peer video is enabled or not
+  bool videoEnabled;
 }
 
 export type updateCallDrop : Update {
   objectId callId;
+}
+
+export type updateCallStarted : Update {
+  objectId callId;
+}
+
+export type updateCallVideoEnabledStateChange : Update {
+  objectId callId;
+  bool videoEnabled;
 }
 
 export type Updates : ServerMessage {

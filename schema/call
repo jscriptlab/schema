@@ -24,6 +24,7 @@ export type sendOfferResult : Result {
 export call SendOffer : Request => sendOfferResult {
   string username;
   rtcSessionDescriptionOffer offer;
+  bool videoEnabled;
 }
 
 export call SendRTCIceCandidate : Request => Void {
@@ -36,6 +37,7 @@ export trait SendAnswerInput {}
 
 export type sendAnswerInputAccept : SendAnswerInput {
   rtcSessionDescriptionAnswer description;
+  bool videoEnabled;
 }
 
 // declines the call
@@ -44,4 +46,9 @@ export type sendAnswerInputDecline : SendAnswerInput{}
 export call SendAnswer : Request => Void {
   objectId callId;
   SendAnswerInput value;
+}
+
+export call SetConnectedState : Request => Void {
+  objectId callId;
+  bool connected;
 }
