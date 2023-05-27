@@ -33,22 +33,22 @@ export call SendRTCIceCandidate : Request => Void {
   string candidate;
 }
 
-export trait SendAnswerInput {}
-
-export type sendAnswerInputAccept : SendAnswerInput {
-  rtcSessionDescriptionAnswer description;
-  bool videoEnabled;
+export call DropCall : Request => Void {
+  objectId callId;
 }
-
-// declines the call
-export type sendAnswerInputDecline : SendAnswerInput{}
 
 export call SendAnswer : Request => Void {
   objectId callId;
-  SendAnswerInput value;
+  rtcSessionDescriptionAnswer description;
+  bool videoEnabled;
 }
 
 export call SetConnectedState : Request => Void {
   objectId callId;
   bool connected;
+}
+
+export call SetVideoEnabledState : Request => Void {
+  objectId callId;
+  bool videoEnabled;
 }
